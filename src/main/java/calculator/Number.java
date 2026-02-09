@@ -1,3 +1,5 @@
+package calculator;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,5 +47,11 @@ public class Number {
 
     public List<Integer> getNumbers() {
         return numbers;
+    }
+
+    public Integer calculate() {
+        return this.numbers.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 }
