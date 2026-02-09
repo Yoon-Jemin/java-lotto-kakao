@@ -15,13 +15,18 @@ public class UserInput {
     }
 
     public void validate(String text) {
-        Matcher m = Pattern.compile("//(.)\n(.*)").matcher(text);
+        validateFormat(text);
+    }
+
+    private void validateFormat(String text) {
+        Matcher m = Pattern.compile("^//(.)\n(.*)").matcher(text);
         if (m.find()) {
             String customDelimiter = m.group(1);
             this.separator.addSeparator(customDelimiter);
-
-//            String[] tokens= m.group(2).split(customDelimiter);
+            return;
         }
+
+        throw new IllegalArgumentException("message");
     }
 
     public Number getNumber() {
