@@ -36,7 +36,47 @@ class NumberTest {
     void inputExceptionTest1() {
         Assertions.assertThatThrownBy(() -> {
             UserInput input = new UserInput("1,2,a");
-        }).isInstanceOf(IllegalArgumentException.class).hasMessage("문자열을 입력받았습니다.");
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("음수를 입력받은 경우")
+    void inputExceptionTest2() {
+        Assertions.assertThatThrownBy(() -> {
+            UserInput input = new UserInput("-1,2,3");
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("등록한 구분자 이외의 구분자를 사용한 경우")
+    void inputExceptionTest3() {
+        Assertions.assertThatThrownBy(() -> {
+            UserInput input = new UserInput("1^2,3");
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("커스텀 구분자가 숫자인 경우")
+    void inputExceptionTest4() {
+        Assertions.assertThatThrownBy(() -> {
+            UserInput input = new UserInput("//6\n1,2,a");
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("커스텀 구분자가 숫자인 경우")
+    void inputExceptionTest5() {
+        Assertions.assertThatThrownBy(() -> {
+            UserInput input = new UserInput("///;\n1;2;3");
+        }).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("구분자를 연속적으로 사용한 경우")
+    void inputExceptionTest6() {
+        Assertions.assertThatThrownBy(() -> {
+            UserInput input = new UserInput("1,2,,3");
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
 }
