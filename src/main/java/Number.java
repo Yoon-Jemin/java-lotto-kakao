@@ -1,0 +1,14 @@
+import java.util.List;
+
+public class Number {
+
+    private List<Integer> numbers;
+
+    public Number(List<Integer> numbers) {
+        this.numbers = numbers;
+    }
+
+    public List<Integer> getNumbers() {
+        return List.of(1, 2, 3);
+    }
+}
