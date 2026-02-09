@@ -1,14 +1,49 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Number {
 
+    private final String delimiter = " ";
     private List<Integer> numbers;
 
-    public Number(List<Integer> numbers) {
-        this.numbers = numbers;
+    // 1 2 3 형식
+    public Number(String input) {
+        String[] result = validate(input);
+        numbers = new ArrayList<>();
+        createNumbers(result);
+
+    }
+
+    public String[] validate(String input) {
+        String[] split = input.split(delimiter);
+        for (String s : split) {
+            validateNumber(s);
+            validateRange(Integer.parseInt(s));
+        }
+        return split;
+    }
+
+    public void validateNumber(String number) {
+        try {
+            Integer.parseInt(number);
+        } catch (Exception e) {
+            throw new RuntimeException("숫자 형식이 아닙니다.");
+        }
+    }
+
+    public void validateRange(int value) {
+        if (value < 0) {
+            throw new RuntimeException("음수가 입력되었습니다.");
+        }
+    }
+
+    public void createNumbers(String[] input) {
+        for (String s : input) {
+            numbers.add(Integer.parseInt(s));
+        }
     }
 
     public List<Integer> getNumbers() {
-        return List.of(1, 2, 3);
+        return numbers;
     }
 }
