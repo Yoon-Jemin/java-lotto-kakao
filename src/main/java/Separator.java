@@ -6,11 +6,15 @@ public class Separator {
 
     private Set<String> separators;
 
-    public Separator(Set<String> separators) {
-        this.separators = separators;
+    public Separator() {
+        this.separators = new HashSet<>(List.of(",", ":"));
     }
 
     public Set<String> getSeparators() {
-        return new HashSet<>(List.of(","));
+        return this.separators;
+    }
+
+    public void addSeparator(String separator) {
+        this.separators.add(separator);
     }
 }
