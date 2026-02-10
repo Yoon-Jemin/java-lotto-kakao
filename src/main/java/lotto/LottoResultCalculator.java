@@ -1,8 +1,6 @@
 package lotto;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LottoResultCalculator {
 
@@ -17,22 +15,43 @@ public class LottoResultCalculator {
     }
 
     public GameResult calculate() {
+        HashMap<GameStatus, Integer> gameResultMap = getGameStatusIntegerHashMap();
+        int profit = calculateProfit(gameResultMap);
+        double profitRate = calculateProfitRate(profit);
 
-
-
-        return null;
-//        return new GameResult();
+        return new GameResult(gameResultMap, profit, profitRate);
     }
 
-    private List<GameStatus> judgeGameStatus() {
+    private HashMap<GameStatus, Integer> getGameStatusIntegerHashMap() {
+        HashMap<GameStatus, Integer> gameResultMap = new HashMap<>();
 
-
-
-        List<Lotto> lottos = user.getLottos();
-        for (Lotto lotto : lottos) {
-            Set<Integer> userSet = new HashSet<>(lotto.getNumbers());
+        for (Lotto userLotto : user.getLottos()) {
+            Set<Integer> userSet = new HashSet<>(userLotto.getNumbers());
             userSet.retainAll(winningLottoSet);
             int count = userSet.size();
+            boolean hasBonus = checkBonusNumber(userLotto);
+            GameStatus gameStatus = GameStatus.judgeGameStatus(count, hasBonus);
+
+            gameResultMap.put(gameStatus, gameResultMap.getOrDefault(gameStatus, 0) + 1);
         }
+        return gameResultMap;
+    }
+
+    private double calculateProfitRate(int profit) {
+        return (double) profit / user.getPrice();
+    }
+
+    private int calculateProfit(Map<GameStatus, Integer> map) {
+        int profit = 0;
+        for (GameStatus gameStatus : map.keySet()) {
+            profit += gameStatus.getPrice() * map.get(gameStatus);
+        }
+
+        return profit;
+    }
+
+    private boolean checkBonusNumber(Lotto userLotto) {
+        Set<Integer> userLottoSet = new HashSet<>(userLotto.getNumbers());
+        return userLottoSet.contains(winningLotto.getBonusNumber());
     }
 }

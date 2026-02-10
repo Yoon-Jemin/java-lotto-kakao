@@ -1,29 +1,24 @@
 package lotto;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static lotto.GameStatus.*;
 
 public class GameResult {
 
-    private List<GameStatus> statuses;
+    private Map<GameStatus, Integer> statuses;
     private int profit;
     private double profitRate;
 
-    public GameResult(int profit, double profitRate) {
-        this.statuses = List.of(
-                FAIL,
-                THREE_CORRECT,
-                FOUR_CORRECT,
-                FIVE_CORRECT,
-                FIVE_CORRECT_BONUS, 
-                SIX_CORRECT
-        );
+    public GameResult(Map<GameStatus, Integer> map, int profit, double profitRate) {
+        this.statuses = map;
         this.profit = profit;
         this.profitRate = profitRate;
     }
 
-    public List<GameStatus> getStatuses() {
+    public Map<GameStatus, Integer> getStatuses() {
         return statuses;
     }
 
