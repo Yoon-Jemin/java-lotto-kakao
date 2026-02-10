@@ -1,9 +1,9 @@
-package lotto;
+package lotto.view;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OutputView {
+public class CommandOutputView implements OutputView {
 
     public void printMessage(String message) {
         System.out.println(message);

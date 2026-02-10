@@ -29,7 +29,7 @@ public class LottoResultCalculatorTest {
         LottoResultCalculator calculator = new LottoResultCalculator(user, winningLottoNumber);
 
         GameResult result = calculator.calculate();
-        int profit = result.getProfit();
+        long profit = result.getProfit();
         double profitRate = result.getProfitRate();
 
         assertThat(result.getStatuses().get(GameStatus.SIX_CORRECT)).isEqualTo(1);

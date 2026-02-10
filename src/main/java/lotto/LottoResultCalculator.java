@@ -16,7 +16,7 @@ public class LottoResultCalculator {
 
     public GameResult calculate() {
         HashMap<GameStatus, Integer> gameResultMap = getGameStatusIntegerHashMap();
-        int profit = calculateProfit(gameResultMap);
+        long profit = calculateProfit(gameResultMap);
         double profitRate = calculateProfitRate(profit);
 
         return new GameResult(gameResultMap, profit, profitRate);
@@ -37,12 +37,12 @@ public class LottoResultCalculator {
         return gameResultMap;
     }
 
-    private double calculateProfitRate(int profit) {
+    private double calculateProfitRate(long profit) {
         return (double) profit / user.getPrice();
     }
 
-    private int calculateProfit(Map<GameStatus, Integer> map) {
-        int profit = 0;
+    private long calculateProfit(Map<GameStatus, Integer> map) {
+        long profit = 0;
         for (GameStatus gameStatus : map.keySet()) {
             profit += gameStatus.getPrice() * map.get(gameStatus);
         }

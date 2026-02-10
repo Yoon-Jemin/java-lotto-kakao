@@ -1,8 +1,16 @@
 package lotto;
 
+import lotto.view.CommandInputView;
+import lotto.view.CommandOutputView;
+import lotto.view.InputView;
+import lotto.view.OutputView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import static lotto.GameStatus.*;
 
 public class GameController {
 
@@ -34,7 +42,23 @@ public class GameController {
         makeUserInfo();
         makeWinningLotto();
         LottoResultCalculator calculator = new LottoResultCalculator(user, winningLotto);
-        return calculator.calculate();
+        GameResult result = calculator.calculate();
+        printResult(result);
+
+        return result;
+    }
+
+    private void printResult(GameResult result) {
+        outputView.printMessage("당첨 통계");
+        Map<GameStatus, Integer> statuses = result.getStatuses();
+        outputView.printMessage("---------");
+        outputView.printMessage("3개 일치 (" + THREE_CORRECT.getPrice() + "원) - " + statuses.getOrDefault(THREE_CORRECT, 0) + "개");
+        outputView.printMessage("4개 일치 (" + FOUR_CORRECT.getPrice() + "원) - " + statuses.getOrDefault(FOUR_CORRECT, 0) + "개");
+        outputView.printMessage("5개 일치 (" + FIVE_CORRECT.getPrice() + "원) - " + statuses.getOrDefault(FIVE_CORRECT, 0) + "개");
+        outputView.printMessage("5개 일치, 보너스 볼 일치 (" + FIVE_CORRECT_BONUS.getPrice() + "원) - " + statuses.getOrDefault(FIVE_CORRECT_BONUS, 0) + "개");
+        outputView.printMessage("6개 일치 (" + SIX_CORRECT.getPrice() + "원) - " + statuses.getOrDefault(SIX_CORRECT, 0) + "개");
+
+        outputView.printMessage("총 수익률은 " + String.format("%.2f", result.getProfitRate()) + "입니다.");
     }
 
     private void makeWinningLotto() {

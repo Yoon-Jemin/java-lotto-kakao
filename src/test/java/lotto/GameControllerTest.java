@@ -1,12 +1,18 @@
 package lotto;
 
+import lotto.view.CommandInputView;
+import lotto.view.CommandOutputView;
+import lotto.view.InputView;
+import lotto.view.OutputView;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
+import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class GameControllerTest {
 
@@ -22,8 +28,12 @@ public class GameControllerTest {
 
         User user = new User(3000, 3, lottos);
         Random numberGenerator = new FixedNumberGenerator();
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
+        MockInputView inputView = new MockInputView(List.of(
+                "3000",
+                "1,2,3,4,5,6",
+                "7"
+        ));
+        MockOutputView outputView = new MockOutputView();
 
         GameController controller = new GameController(
                 numberGenerator,
@@ -34,6 +44,23 @@ public class GameControllerTest {
         GameResult gameResult = controller.play();
 
         Assertions.assertThat(gameResult).isNotNull();
+        Assertions.assertThat(outputView.getOutput()).containsExactly(
+                "구입금액을 입력해 주세요.",
+                "3개를 구매했습니다.",
+                "[1, 2, 3, 4, 5, 6]",
+                "[1, 2, 3, 4, 5, 6]",
+                "[1, 2, 3, 4, 5, 6]",
+                "지난 주 당첨 번호를 입력해 주세요.",
+                "보너스 볼을 입력해 주세요.",
+                "당첨 통계",
+                "---------",
+                "3개 일치 (5000원) - 0개",
+                "4개 일치 (50000원) - 0개",
+                "5개 일치 (1500000원) - 0개",
+                "5개 일치, 보너스 볼 일치 (30000000원) - 0개",
+                "6개 일치 (2000000000원) - 3개",
+                "총 수익률은 2000000.00입니다."
+        );
     }
 
     static class FixedNumberGenerator implements Random {
@@ -41,6 +68,47 @@ public class GameControllerTest {
         @Override
         public List<Integer> generate() {
             return List.of(1, 2, 3, 4, 5, 6);
+        }
+    }
+
+    static class MockInputView implements InputView {
+
+        private Queue<String> queue;
+
+        public MockInputView(List<String> inputs) {
+            this.queue = new LinkedList<>(inputs);
+        }
+
+        @Override
+        public String input() {
+            return queue.poll();
+        }
+    }
+
+    static class MockOutputView implements OutputView {
+
+        public List<String> output;
+
+        public MockOutputView() {
+            this.output = new ArrayList<>();
+        }
+
+        @Override
+        public void printMessage(String message) {
+            output.add(message);
+        }
+
+        @Override
+        public void printLog(List<Integer> list) {
+            String result = list.stream()
+                    .map(String::valueOf)
+                    .collect(Collectors.joining(", ", "[", "]"));
+
+            output.add(result);
+        }
+
+        public List<String> getOutput() {
+            return output;
         }
     }
 }

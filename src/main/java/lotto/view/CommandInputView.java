@@ -1,11 +1,11 @@
-package lotto;
+package lotto.view;
 
 import java.util.Scanner;
 
-public class InputView {
+public class CommandInputView implements InputView {
     private Scanner scanner;
 
-    public InputView() {
+    public CommandInputView() {
         this.scanner = new Scanner(System.in);
     }
 

@@ -9,10 +9,10 @@ import static lotto.GameStatus.*;
 public class GameResult {
 
     private Map<GameStatus, Integer> statuses;
-    private int profit;
+    private long profit;
     private double profitRate;
 
-    public GameResult(Map<GameStatus, Integer> map, int profit, double profitRate) {
+    public GameResult(Map<GameStatus, Integer> map, long profit, double profitRate) {
         this.statuses = map;
         this.profit = profit;
         this.profitRate = profitRate;
@@ -22,7 +22,7 @@ public class GameResult {
         return statuses;
     }
 
-    public int getProfit() {
+    public long getProfit() {
         return profit;
     }
 
