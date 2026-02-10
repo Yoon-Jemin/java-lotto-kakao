@@ -35,7 +35,6 @@ public class GameController {
         makeWinningLotto();
         LottoResultCalculator calculator = new LottoResultCalculator(user, winningLotto);
         return calculator.calculate();
-//        return new GameResult(GameStatus.FOUR_CORRECT, 10000, 1);
     }
 
     private void makeWinningLotto() {
