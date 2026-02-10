@@ -21,10 +21,17 @@ public class GameControllerTest {
 
         User user = new User(3000, 3, lottos);
         WinningLotto winningLotto = new WinningLotto(winningLottoNumber, 7);
+        Random numberGenerator = new RandomNumberGenerator();
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
-        GameController controller = new GameController(user, winningLotto, inputView, outputView);
+        GameController controller = new GameController(
+                user,
+                winningLotto,
+                numberGenerator,
+                inputView,
+                outputView
+        );
 
         assertThat(controller.getUser()).isNotNull();
         assertThat(controller.getWinningLotto()).isNotNull();
