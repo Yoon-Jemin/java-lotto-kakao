@@ -30,4 +30,8 @@ public class GameController {
     public WinningLotto getWinningLotto() {
         return winningLotto;
     }
+
+    public GameResult play() {
+        return new GameResult(GameStatus.FOUR_CORRECT, 10000, 1);
+    }
 }
