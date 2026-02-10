@@ -5,25 +5,25 @@ import java.util.Arrays;
 
 public enum GameStatus {
 
-    SIX_CORRECT(2000000000, 6, false),
-    FIVE_CORRECT_BONUS(30000000, 5, true),
-    FIVE_CORRECT(1500000, 5, false),
-    FOUR_CORRECT(50000, 4, false),
-    THREE_CORRECT(5000, 3, false),
-    FAIL(0, -1, false)
+    SIX_CORRECT(2000000000L, 6, false),
+    FIVE_CORRECT_BONUS(30000000L, 5, true),
+    FIVE_CORRECT(1500000L, 5, false),
+    FOUR_CORRECT(50000L, 4, false),
+    THREE_CORRECT(5000L, 3, false),
+    FAIL(0L, -1, false)
     ;
 
-    private int price;
+    private long price;
     private int count;
     private boolean hasBonus;
 
-    GameStatus(int price, int count, boolean hasBonus) {
+    GameStatus(long price, int count, boolean hasBonus) {
         this.price = price;
         this.count = count;
         this.hasBonus = hasBonus;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
