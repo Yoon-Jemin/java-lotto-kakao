@@ -20,25 +20,23 @@ public class GameControllerTest {
         Lotto winningLottoNumber = new Lotto(List.of(1, 2, 3, 4, 5, 6));
 
         User user = new User(3000, 3, lottos);
-        WinningLotto winningLotto = new WinningLotto(winningLottoNumber, 7);
         Random numberGenerator = new RandomNumberGenerator();
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
         GameController controller = new GameController(
                 user,
-                winningLotto,
                 numberGenerator,
                 inputView,
                 outputView
         );
 
         assertThat(controller.getUser()).isNotNull();
-        assertThat(controller.getWinningLotto()).isNotNull();
+//        assertThat(controller.getWinningLotto()).isNotNull();
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("통합 테스트")
     public void success_1() {
         Lotto lotto1 = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         Lotto lotto2 = new Lotto(List.of(7, 8, 9, 10, 11, 12));
@@ -48,14 +46,12 @@ public class GameControllerTest {
         Lotto winningLottoNumber = new Lotto(List.of(1, 2, 3, 4, 5, 6));
 
         User user = new User(3000, 3, lottos);
-        WinningLotto winningLotto = new WinningLotto(winningLottoNumber, 7);
         Random numberGenerator = new FixedNumberGenerator();
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
         GameController controller = new GameController(
                 user,
-                winningLotto,
                 numberGenerator,
                 inputView,
                 outputView
