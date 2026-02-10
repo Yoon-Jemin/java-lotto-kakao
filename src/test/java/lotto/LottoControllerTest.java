@@ -1,7 +1,5 @@
 package lotto;
 
-import lotto.view.CommandInputView;
-import lotto.view.CommandOutputView;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 import org.assertj.core.api.Assertions;
@@ -14,19 +12,11 @@ import java.util.List;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-public class GameControllerTest {
+public class LottoControllerTest {
 
     @Test
     @DisplayName("통합 테스트")
-    public void success_1() {
-        Lotto lotto1 = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-        Lotto lotto2 = new Lotto(List.of(7, 8, 9, 10, 11, 12));
-        Lotto lotto3 = new Lotto(List.of(13, 14, 15, 16, 17, 18));
-        List<Lotto> lottos = List.of(lotto1, lotto2, lotto3);
-
-        Lotto winningLottoNumber = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-
-        User user = new User(3000, 3, lottos);
+    public void success() {
         Random numberGenerator = new FixedNumberGenerator();
         MockInputView inputView = new MockInputView(List.of(
                 "3000",
@@ -35,13 +25,13 @@ public class GameControllerTest {
         ));
         MockOutputView outputView = new MockOutputView();
 
-        GameController controller = new GameController(
+        LottoController controller = new LottoController(
                 numberGenerator,
                 inputView,
                 outputView
         );
 
-        GameResult gameResult = controller.play();
+        LottoResult gameResult = controller.play();
 
         Assertions.assertThat(gameResult).isNotNull();
         Assertions.assertThat(outputView.getOutput()).containsExactly(
