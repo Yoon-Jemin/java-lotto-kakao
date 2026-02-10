@@ -38,7 +38,7 @@ public class GameControllerTest {
     }
 
     @Test
-    @DisplayName()
+    @DisplayName("")
     public void success_1() {
         Lotto lotto1 = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         Lotto lotto2 = new Lotto(List.of(7, 8, 9, 10, 11, 12));
@@ -49,7 +49,7 @@ public class GameControllerTest {
 
         User user = new User(3000, 3, lottos);
         WinningLotto winningLotto = new WinningLotto(winningLottoNumber, 7);
-        Random numberGenerator = new RandomNumberGenerator();
+        Random numberGenerator = new FixedNumberGenerator();
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
@@ -61,6 +61,16 @@ public class GameControllerTest {
                 outputView
         );
 
-        controller.play();
+        GameResult gameResult = controller.play();
+
+        Assertions.assertThat(gameResult).isNotNull();
+    }
+
+    static class FixedNumberGenerator implements Random {
+
+        @Override
+        public List<Integer> generate() {
+            return List.of(1, 2, 3, 4, 5, 6);
+        }
     }
 }
