@@ -5,22 +5,21 @@ import java.util.stream.Collectors;
 
 public class Parser {
 
-    private String before;
-    private String after;
     private Separator separator;
     private Number number;
 
     public Parser(String input) {
-        this.before = input;
-        this.after = before;
         this.separator = new Separator(input);
-        validate();
-        parse();
-        this.number = new Number(after);
+        if (separator.hasCustomSeparator()) {
+            input = input.substring(4);
+        }
+        validate(input);
+        String parsedInput = parse(input);
+        this.number = new Number(parsedInput);
     }
 
-    private void validate() {
-        for (char s : after.toCharArray()) {
+    private void validate(String input) {
+        for (char s : input.toCharArray()) {
             validateString(s);
         }
     }
@@ -31,27 +30,24 @@ public class Parser {
         }
     }
 
-    public void parse() {
-        parseSeparator();
-        validateConsecutiveDelimiters();
+    public String parse(String input) {
+        String parsedInput = parseSeparator(input);
+        validateConsecutiveDelimiters(parsedInput);
+        return parsedInput;
     }
 
-    private void validateConsecutiveDelimiters() {
-        if (after.contains("  ")) {
-            throw new IllegalArgumentException("구분자는 연속적으로 사용할 수 없습니다.");
-        }
-    }
-
-    private void parseSeparator() {
-        if (separator.hasCustomSeparator()) {
-            after = before.substring(5);
-        }
-
+    private String parseSeparator(String input) {
         String regex = separator.getSeparators().stream()
                 .map(Pattern::quote)
                 .collect(Collectors.joining("", "[", "]"));
 
-        after = after.replaceAll(regex, " ");
+        return input.replaceAll(regex, " ");
+    }
+
+    private void validateConsecutiveDelimiters(String input) {
+        if (input.contains("  ")) {
+            throw new IllegalArgumentException("구분자는 연속적으로 사용할 수 없습니다.");
+        }
     }
 
     public Separator getSeparator() {
