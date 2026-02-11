@@ -4,29 +4,20 @@ import java.util.*;
 
 public class WinningLotto {
 
-    private final Lotto lotto;
-    private final int bonusNumber;
+    public static final String BONUS_NUMBER_DUPLICATE_EXCEPTION = "당첨번호와 중복된 숫자를 보너스 번호로 등록할 수 없습니다.";
 
-    public WinningLotto(Lotto lotto, int bonusNumber) {
-        validate(lotto, bonusNumber);
+    private final Lotto lotto;
+    private final LottoNumber bonusNumber;
+
+    public WinningLotto(Lotto lotto, LottoNumber bonusNumber) {
+        validateDuplicate(lotto, bonusNumber);
         this.lotto = lotto;
         this.bonusNumber = bonusNumber;
     }
 
-    private void validate(Lotto lotto, int bonusNumber) {
-        validateRange(bonusNumber);
-        validateDuplicate(lotto, bonusNumber);
-    }
-
-    private void validateRange(int bonusNumber) {
-        if (bonusNumber < 1 || bonusNumber > 45) {
-            throw new IllegalArgumentException("1 ~ 45 범위를 벗어나는 숫자가 입력되었습니다.");
-        }
-    }
-
-    private void validateDuplicate(Lotto lotto, int bonusNumber) {
-        if (lotto.getNumbers().contains(bonusNumber)) {
-            throw new IllegalArgumentException("당첨번호와 중복된 숫자를 보너스 번호로 등록할 수 없습니다.");
+    private void validateDuplicate(Lotto lotto, LottoNumber bonusNumber) {
+        if (lotto.getNumbers().contains(bonusNumber.getNumber())) {
+            throw new IllegalArgumentException(BONUS_NUMBER_DUPLICATE_EXCEPTION);
         }
     }
 
@@ -34,31 +25,28 @@ public class WinningLotto {
         return lotto;
     }
 
-    public int getBonusNumber() {
+    public LottoNumber getBonusNumber() {
         return bonusNumber;
     }
 
     public LottoResult calculate(List<Lotto> userLottos, int price) {
-        HashMap<LottoStatus, Integer> gameResultMap = getGameStatusIntegerHashMap(userLottos);
-        long profit = calculateProfit(gameResultMap);
+        Map<LottoStatus, Integer> lottoResultMap = getLottoResultMap(userLottos);
+        long profit = calculateProfit(lottoResultMap);
         double profitRate = calculateProfitRate(profit, price);
 
-        return new LottoResult(gameResultMap, profit, profitRate);
+        return new LottoResult(lottoResultMap, profit, profitRate);
     }
 
-    private HashMap<LottoStatus, Integer> getGameStatusIntegerHashMap(List<Lotto> userLottos) {
-        HashMap<LottoStatus, Integer> gameResultMap = new HashMap<>();
+    private Map<LottoStatus, Integer> getLottoResultMap(List<Lotto> userLottos) {
+        HashMap<LottoStatus, Integer> lottoResultMap = new HashMap<>();
 
         for (Lotto userLotto : userLottos) {
-            Set<Integer> userSet = new HashSet<>(userLotto.getNumbers());
-            userSet.retainAll(new HashSet<>(this.lotto.getNumbers()));
-            int count = userSet.size();
+            int count = this.lotto.matchCount(userLotto);
             boolean hasBonus = checkBonusNumber(userLotto);
-            LottoStatus gameStatus = LottoStatus.judgeGameStatus(count, hasBonus);
-
-            gameResultMap.put(gameStatus, gameResultMap.getOrDefault(gameStatus, 0) + 1);
+            LottoStatus lottoStatus = LottoStatus.judgeGameStatus(count, hasBonus);
+            lottoResultMap.put(lottoStatus, lottoResultMap.getOrDefault(lottoStatus, 0) + 1);
         }
-        return gameResultMap;
+        return lottoResultMap;
     }
 
     private boolean checkBonusNumber(Lotto userLotto) {

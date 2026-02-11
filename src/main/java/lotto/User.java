@@ -4,25 +4,18 @@ import java.util.List;
 
 public class User {
 
-    private int price;
+    private Price price;
     private int lottoCount;
     private List<Lotto> lottos;
 
-    public User(int price, int lottoCount, List<Lotto> lottos) {
-        validatePrice(price);
+    public User(Price price, int lottoCount, List<Lotto> lottos) {
         this.price = price;
         this.lottoCount = lottoCount;
         this.lottos = lottos;
     }
 
-    private void validatePrice(int price) {
-        if (price < 1000) {
-            throw new IllegalArgumentException("1000원 미만의 구매 금액이 입력되었습니다.");
-        }
-    }
-
     public int getPrice() {
-        return price;
+        return price.getPrice();
     }
 
     public int getLottoCount() {

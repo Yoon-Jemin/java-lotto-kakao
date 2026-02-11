@@ -6,38 +6,45 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static lotto.Lotto.*;
+
 public class LottoTest {
 
+    private Lotto lotto;
+
     @Test
-    @DisplayName("정상적으로 로또 번호를 입력한 경우")
-    void lottoSuccessTest() {
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+    @DisplayName("성공 케이스")
+    void success() {
+        lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
 
         Assertions.assertThat(lotto.getNumbers()).hasSize(6);
         Assertions.assertThat(lotto.getNumbers()).containsExactly(1,2,3,4,5,6);
     }
 
     @Test
-    @DisplayName("1 ~ 45 범위를 벗어나는 숫자인 경우")
-    void lottoFailTest1() {
+    @DisplayName("중복된 숫자를 입력하는 경우 예외처리 할 수 있다.")
+    void fail_duplicateLotto() {
         Assertions.assertThatThrownBy(() -> {
-            Lotto lotto = new Lotto(List.of(1,2,3,4,5,99));
-        }).isInstanceOf(IllegalArgumentException.class).hasMessage("1 ~ 45 범위를 벗어나는 숫자가 입력되었습니다.");
+            lotto = new Lotto(List.of(1,2,3,4,5,5));
+        }).isInstanceOf(IllegalArgumentException.class).hasMessage(DUPLICATE_NUMBER_EXCEPTION);
     }
 
     @Test
-    @DisplayName("중복된 숫자를 입력하는 경우")
-    void lottoFailTest2() {
+    @DisplayName("숫자가 6개가 아닌 경우 예외처리 할 수 있다.")
+    void fail_lottoNumberCountIsNotSix() {
         Assertions.assertThatThrownBy(() -> {
-            Lotto lotto = new Lotto(List.of(1,2,3,4,5,5));
-        }).isInstanceOf(IllegalArgumentException.class).hasMessage("중복된 숫자가 입력되었습니다.");
+            lotto = new Lotto(List.of(1,2,3,4,5,6,7));
+        }).isInstanceOf(IllegalArgumentException.class).hasMessage(NOT_SIX_NUMBERS_EXCEPTION);
     }
 
     @Test
-    @DisplayName("숫자가 6개가 아닌 경우")
-    void lottoFailTest3() {
-        Assertions.assertThatThrownBy(() -> {
-            Lotto lotto = new Lotto(List.of(1,2,3,4,5,6,7));
-        }).isInstanceOf(IllegalArgumentException.class).hasMessage("입력된 숫자가 6개가 아닙니다.");
+    @DisplayName("당첨 로또와 사용자 로또의 겹치는 숫자의 개수를 구할 수 있다.")
+    void matchTest() {
+        lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+        Lotto userLotto = new Lotto(List.of(1,2,3,7,8,9));
+
+        int count = lotto.matchCount(userLotto);
+
+        Assertions.assertThat(count).isEqualTo(3);
     }
 }
