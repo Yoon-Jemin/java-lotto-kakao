@@ -18,7 +18,7 @@ public class CommandInputView implements InputView {
             String input = scanner.nextLine();
             Integer.parseInt(input);
             return input;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException("가격 정보가 숫자 형식이 아닙니다.");
         }
     }

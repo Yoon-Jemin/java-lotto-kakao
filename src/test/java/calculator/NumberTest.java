@@ -11,7 +11,7 @@ class NumberTest {
     void inputExceptionTest1() {
         Assertions.assertThatThrownBy(() -> {
             calculator.Number number = new calculator.Number("1 2 a");
-        }).isInstanceOf(RuntimeException.class).hasMessage("숫자 형식이 아닙니다.");
+        }).isInstanceOf(IllegalArgumentException.class).hasMessage("숫자 형식이 아닙니다.");
     }
 
     @Test
@@ -20,7 +20,7 @@ class NumberTest {
         Assertions.assertThatThrownBy(() -> {
                     calculator.Number number = new calculator.Number("-1 2 3");
                 })
-                .isInstanceOf(RuntimeException.class)
+                .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("음수가 입력되었습니다.");
     }
 

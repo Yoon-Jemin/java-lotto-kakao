@@ -35,7 +35,7 @@ public class Number {
 
     public void validateRange(int value) {
         if (value < 0) {
-            throw new RuntimeException("음수가 입력되었습니다.");
+            throw new IllegalArgumentException("음수가 입력되었습니다.");
         }
     }
 
