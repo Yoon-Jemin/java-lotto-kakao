@@ -22,10 +22,10 @@ public class LottoControllerTest {
     @Test
     @DisplayName("통합 테스트")
     public void success() {
-        NumberGenerator numberGenerator = new FixedNumberGenerator();
+        NumberGenerator fixedNumberGenerator = new FixedNumberGenerator();
         MockInputView inputView = new MockInputView(List.of(
                 "3000",
-                "1",
+                "2",
                 "1,2,3,4,5,6",
                 "1,2,3,4,5,6",
                 "1,2,3,4,5,6",
@@ -34,7 +34,7 @@ public class LottoControllerTest {
         MockOutputView outputView = new MockOutputView();
 
         LottoController controller = new LottoController(
-                numberGenerator,
+                fixedNumberGenerator,
                 inputView,
                 outputView
         );
@@ -46,7 +46,7 @@ public class LottoControllerTest {
                 "구입금액을 입력해 주세요.",
                 "수동으로 구매할 로또 수를 입력해 주세요.",
                 "수동으로 구매할 번호를 입력해 주세요.",
-                "수동으로 1장, 자동으로 2개를 구매했습니다.",
+                "수동으로 2장, 자동으로 1개를 구매했습니다.",
                 "[1, 2, 3, 4, 5, 6]",
                 "[1, 2, 3, 4, 5, 6]",
                 "[1, 2, 3, 4, 5, 6]",
@@ -80,12 +80,17 @@ public class LottoControllerTest {
         }
 
         @Override
-        public String input() {
+        public String inputManualLottoCount() {
             return queue.poll();
         }
 
         @Override
         public String inputPrice() {
+            return queue.poll();
+        }
+
+        @Override
+        public String inputManualLotto() {
             return queue.poll();
         }
     }
@@ -113,8 +118,8 @@ public class LottoControllerTest {
         }
 
         @Override
-        public void printLottoCountMessage(int lottoCount) {
-            output.add(lottoCount + "개를 구매했습니다.");
+        public void printLottoCountMessage(int manualLottoCount, int autoLottoCount) {
+            output.add("수동으로 " + manualLottoCount + "장, 자동으로 " + autoLottoCount + "개를 구매했습니다.");
         }
 
         @Override
@@ -146,6 +151,11 @@ public class LottoControllerTest {
         @Override
         public void printManualLottoCount() {
             output.add("수동으로 구매할 로또 수를 입력해 주세요.");
+        }
+
+        @Override
+        public void printManualLottoInputMessage() {
+            output.add("수동으로 구매할 번호를 입력해 주세요.");
         }
 
         public List<String> getOutput() {

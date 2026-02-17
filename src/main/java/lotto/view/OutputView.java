@@ -11,7 +11,7 @@ public interface OutputView {
 
     void printPriceMessage();
 
-    void printLottoCountMessage(int lottoCount);
+    void printLottoCountMessage(int manualLottoCount, int autoLottoCount);
 
     void printStatistics(Map<LottoStatus, Integer> statuses);
 
@@ -22,4 +22,6 @@ public interface OutputView {
     void printBonusNumberMessage();
 
     void printManualLottoCount();
+
+    void printManualLottoInputMessage();
 }

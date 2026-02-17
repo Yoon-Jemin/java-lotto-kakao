@@ -2,8 +2,9 @@ package lotto.view;
 
 public interface InputView {
 
-    String input();
+    String inputManualLottoCount();
 
     String inputPrice();
 
+    String inputManualLotto();
 }

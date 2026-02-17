@@ -51,7 +51,7 @@ public class WinningLotto {
 
     private boolean checkBonusNumber(Lotto userLotto) {
         Set<Integer> userLottoSet = new HashSet<>(userLotto.getNumbers());
-        return userLottoSet.contains(this.bonusNumber);
+        return userLottoSet.contains(this.bonusNumber.getNumber());
     }
 
     private long calculateProfit(Map<LottoStatus, Integer> map) {

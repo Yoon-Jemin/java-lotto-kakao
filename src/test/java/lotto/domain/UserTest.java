@@ -41,4 +41,13 @@ public class UserTest {
         }).isInstanceOf(IllegalArgumentException.class).hasMessage(User.MANAUL_LOTTO_COUNT_EXCEEDING_EXCEPTION);
     }
 
+    @Test
+    @DisplayName("수동 로또 개수에 음수가 입력되면 예외를 발생싴니다.")
+    void fail_manualLottoCountNegativeException() {
+        Assertions.assertThatThrownBy(() -> {
+            User user = new User(new Price(3000), 3);
+            user.validateManualLottoCount(-1);
+        }).isInstanceOf(IllegalArgumentException.class).hasMessage(User.MANAUL_LOTTO_COUNT_NEGATIVE_EXCEPTION);
+    }
+
 }
