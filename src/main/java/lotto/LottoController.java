@@ -1,5 +1,6 @@
 package lotto;
 
+import lotto.domain.*;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -9,12 +10,12 @@ import java.util.List;
 
 public class LottoController {
 
-    private final Random randomNumberGenerator;
+    private final NumberGenerator randomNumberGenerator;
     private final InputView inputView;
     private final OutputView outputView;
 
     public LottoController(
-            Random randomNumberGenerator,
+            NumberGenerator randomNumberGenerator,
             InputView inputView,
             OutputView outputView
     ) {
@@ -37,10 +38,16 @@ public class LottoController {
         outputView.printPriceMessage();
         Price price = new Price(Integer.parseInt(inputView.inputPrice()));
         int lottoCount = price.getPrice() / 1000;
+        User user = new User(price, lottoCount);
+
+        outputView.printManualLottoCount();
+        int manualLottoCount = Integer.parseInt(inputView.input());
+        user.validateManualLottoCount(manualLottoCount);
+
         outputView.printLottoCountMessage(lottoCount);
         List<Lotto> lottos = makeUserLottoInfo(lottoCount);
 
-        return new User(price, lottoCount, lottos);
+        return user;
     }
 
     private List<Lotto> makeUserLottoInfo(int lottoCount) {

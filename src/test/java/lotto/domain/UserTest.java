@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,11 +24,21 @@ public class UserTest {
                 )
         );
 
-        User user = new User(price, lottoCount, lottos);
+        User user = new User(price, lottoCount);
+        user.addLotto(lottos);
 
         assertThat(user.getPrice()).isEqualTo(3000);
         assertThat(user.getLottoCount()).isEqualTo(3);
         assertThat(user.getLottos()).hasSize(3);
+    }
+
+    @Test
+    @DisplayName("구매할 수 있는 로또의 개수보다 많은 수동 로또 개수가 입력되면 예외를 발생싴니다.")
+    void fail_manualLottoCountExceedingException() {
+        Assertions.assertThatThrownBy(() -> {
+            User user = new User(new Price(3000), 3);
+            user.validateManualLottoCount(4);
+        }).isInstanceOf(IllegalArgumentException.class).hasMessage(User.MANAUL_LOTTO_COUNT_EXCEEDING_EXCEPTION);
     }
 
 }

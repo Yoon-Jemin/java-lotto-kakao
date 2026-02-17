@@ -1,7 +1,0 @@
-package calculatorTest;
-
-class SeparatorTest {
-
-
-
-}

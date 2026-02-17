@@ -1,8 +1,8 @@
-package lotto;
+package lotto.domain;
 
 import java.util.List;
 
-public interface Random {
+public interface NumberGenerator {
 
     public List<Integer> generate();
 }

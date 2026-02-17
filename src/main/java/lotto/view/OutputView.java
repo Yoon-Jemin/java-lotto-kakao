@@ -1,11 +1,9 @@
 package lotto.view;
 
-import lotto.LottoNumber;
-import lotto.LottoStatus;
+import lotto.domain.LottoStatus;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public interface OutputView {
 
@@ -22,4 +20,6 @@ public interface OutputView {
     void printWinningLottoMessage();
 
     void printBonusNumberMessage();
+
+    void printManualLottoCount();
 }

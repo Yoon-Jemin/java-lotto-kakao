@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static lotto.WinningLotto.*;
+import static lotto.domain.WinningLotto.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -21,7 +21,8 @@ public class WinningLottoTest {
         Lotto lotto3 = new Lotto(List.of(13, 14, 15, 16, 17, 18));
         List<Lotto> lottos = List.of(lotto1, lotto2, lotto3);
 
-        this.user = new User(new Price(3000), 3, lottos);
+        this.user = new User(new Price(3000), 3);
+        this.user.addLotto(lottos);
     }
 
     @Test

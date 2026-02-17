@@ -1,15 +1,15 @@
 package lotto.view;
 
-import lotto.LottoStatus;
+import lotto.domain.LottoStatus;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static lotto.LottoStatus.*;
-import static lotto.LottoStatus.FIVE_CORRECT;
-import static lotto.LottoStatus.FIVE_CORRECT_BONUS;
-import static lotto.LottoStatus.SIX_CORRECT;
+import static lotto.domain.LottoStatus.*;
+import static lotto.domain.LottoStatus.FIVE_CORRECT;
+import static lotto.domain.LottoStatus.FIVE_CORRECT_BONUS;
+import static lotto.domain.LottoStatus.SIX_CORRECT;
 
 public class CommandOutputView implements OutputView {
 
@@ -51,5 +51,10 @@ public class CommandOutputView implements OutputView {
     @Override
     public void printBonusNumberMessage() {
         System.out.println("보너스 볼을 입력해 주세요.");
+    }
+
+    @Override
+    public void printManualLottoCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
     }
 }
