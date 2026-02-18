@@ -95,7 +95,7 @@ public class LottoController {
 
     private String[] makeWinningLottoNumbers() {
         outputView.printWinningLottoMessage();
-        String winningLottoStr = inputView.inputManualLottoCount();
+        String winningLottoStr = inputView.inputManualLotto();
         return winningLottoStr.split(",");
     }
 
