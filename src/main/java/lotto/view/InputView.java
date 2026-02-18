@@ -7,4 +7,8 @@ public interface InputView {
     String inputPrice();
 
     String inputManualLotto();
+
+    String inputWinningLotto();
+
+    String inputBonusNumber();
 }

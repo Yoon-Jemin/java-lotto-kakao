@@ -21,8 +21,7 @@ public class WinningLottoTest {
         Lotto lotto3 = new Lotto(List.of(13, 14, 15, 16, 17, 18));
         List<Lotto> lottos = List.of(lotto1, lotto2, lotto3);
 
-        this.user = new User(new Price(3000), 3);
-        this.user.addLotto(lottos);
+        this.user = new User(new Price(3000), lottos, 3);
     }
 
     @Test

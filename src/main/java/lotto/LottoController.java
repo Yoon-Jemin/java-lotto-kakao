@@ -38,27 +38,32 @@ public class LottoController {
         outputView.printPriceMessage();
         Price price = new Price(Integer.parseInt(inputView.inputPrice()));
         int lottoCount = price.getLottoCount();
-        User user = new User(price, lottoCount);
-        int manualLottoCount = makeUserManaulLotto(user);
-        outputView.printLottoCountMessage(manualLottoCount, lottoCount - manualLottoCount);
-        makeAutoLottoInfo(lottoCount - manualLottoCount, user);
 
+        List<Lotto> manualLottos = makeManualLottos();
+        List<Lotto> autoLottos = makeAutoLottos(lottoCount - manualLottos.size());
+
+        List<Lotto> allLottos = new ArrayList<>();
+        allLottos.addAll(manualLottos);
+        allLottos.addAll(autoLottos);
+
+        User user = new User(price, allLottos, manualLottos.size());
+        outputView.printLottoCountMessage(user.getManualLottoCount(), user.getAutoLottoCount());
         return user;
     }
 
-    private int makeUserManaulLotto(User user) {
+    private List<Lotto> makeManualLottos() {
         outputView.printManualLottoCount();
         int manualLottoCount = Integer.parseInt(inputView.inputManualLottoCount());
-        List<Lotto> manualLottos = new ArrayList<>();
+
         outputView.printManualLottoInputMessage();
+        List<Lotto> manualLottos = new ArrayList<>();
         for (int i = 0; i < manualLottoCount; i++) {
-            manualLottos.add(makeManaulLotto());
+            manualLottos.add(makeManualLotto());
         }
-        user.addLotto(manualLottos);
-        return manualLottoCount;
+        return manualLottos;
     }
 
-    private Lotto makeManaulLotto() {
+    private Lotto makeManualLotto() {
         String input = inputView.inputManualLotto();
         List<Integer> numbers = Arrays.stream(input.split(","))
                 .map(String::trim)
@@ -68,12 +73,12 @@ public class LottoController {
         return new Lotto(numbers);
     }
 
-    private void makeAutoLottoInfo(int autoLottoCount, User user) {
+    private List<Lotto> makeAutoLottos(int count) {
         List<Lotto> autoLottos = new ArrayList<>();
-        for (int i = 0; i < autoLottoCount; i++) {
+        for (int i = 0; i < count; i++) {
             autoLottos.add(new Lotto(randomNumberGenerator.generate()));
         }
-        user.addLotto(autoLottos);
+        return autoLottos;
     }
 
     private void printUserLotto(User user) {
@@ -94,13 +99,13 @@ public class LottoController {
 
     private String[] makeWinningLottoNumbers() {
         outputView.printWinningLottoMessage();
-        String winningLottoStr = inputView.inputManualLotto();
+        String winningLottoStr = inputView.inputWinningLotto();
         return winningLottoStr.split(",");
     }
 
     private int makeBonusNumber() {
         outputView.printBonusNumberMessage();
-        return Integer.parseInt(inputView.inputManualLottoCount());
+        return Integer.parseInt(inputView.inputBonusNumber());
     }
 
     private void printResult(LottoResult result) {

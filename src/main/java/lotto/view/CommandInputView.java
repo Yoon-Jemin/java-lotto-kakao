@@ -35,4 +35,20 @@ public class CommandInputView implements InputView {
     public String inputManualLotto() {
         return scanner.nextLine();
     }
+
+    @Override
+    public String inputWinningLotto() {
+        return scanner.nextLine();
+    }
+
+    @Override
+    public String inputBonusNumber() {
+        try {
+            String input = scanner.nextLine();
+            Integer.parseInt(input);
+            return input;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("보너스 번호가 숫자 형식이 아닙니다.");
+        }
+    }
 }

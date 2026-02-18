@@ -94,6 +94,16 @@ public class LottoControllerTest {
         public String inputManualLotto() {
             return queue.poll();
         }
+
+        @Override
+        public String inputWinningLotto() {
+            return queue.poll();
+        }
+
+        @Override
+        public String inputBonusNumber() {
+            return queue.poll();
+        }
     }
 
     static class MockOutputView implements OutputView {

@@ -11,7 +11,7 @@ public class RandomNumberGenerator implements NumberGenerator {
         for (int i = 1; i <= 45; i++) numbers.add(i);
 
         Collections.shuffle(numbers);
-        List<Integer> result = numbers.subList(0, 6);
+        List<Integer> result = new ArrayList<>(numbers.subList(0, 6));
         Collections.sort(result);
 
         return result;
