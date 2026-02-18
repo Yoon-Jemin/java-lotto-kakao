@@ -49,7 +49,6 @@ public class LottoController {
     private int makeUserManaulLotto(User user) {
         outputView.printManualLottoCount();
         int manualLottoCount = Integer.parseInt(inputView.inputManualLottoCount());
-        user.validateManualLottoCount(manualLottoCount);
         List<Lotto> manualLottos = new ArrayList<>();
         outputView.printManualLottoInputMessage();
         for (int i = 0; i < manualLottoCount; i++) {

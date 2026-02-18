@@ -19,6 +19,7 @@ public class User {
     }
 
     public void addLotto(List<Lotto> newLottos) {
+        validateManualLottoCount(newLottos.size());
         this.lottos.addAll(newLottos);
     }
 
@@ -34,11 +35,11 @@ public class User {
         return lottos;
     }
 
-    public void validateManualLottoCount(int manualLottoCount) {
-        if (lottoCount < manualLottoCount) {
+    public void validateManualLottoCount(int newLottoCount) {
+        if (lottoCount < newLottoCount) {
             throw new IllegalArgumentException(MANAUL_LOTTO_COUNT_EXCEEDING_EXCEPTION);
         }
-        if (manualLottoCount < 0) {
+        if (newLottoCount < 0) {
             throw new IllegalArgumentException(MANAUL_LOTTO_COUNT_NEGATIVE_EXCEPTION);
         }
     }
