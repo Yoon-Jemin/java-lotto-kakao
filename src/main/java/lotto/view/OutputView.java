@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoStatus;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Map;
 
 public interface OutputView {
 
-    void printLog(List<Integer> list);
+    void printLog(List<LottoNumber> list);
 
     void printPriceMessage();
 

@@ -37,7 +37,7 @@ public class LottoController {
     private User makeUserInfo() {
         outputView.printPriceMessage();
         Price price = new Price(Integer.parseInt(inputView.inputPrice()));
-        int lottoCount = price.getPrice() / 1000;
+        int lottoCount = price.getLottoCount();
         User user = new User(price, lottoCount);
         int manualLottoCount = makeUserManaulLotto(user);
         outputView.printLottoCountMessage(manualLottoCount, lottoCount - manualLottoCount);

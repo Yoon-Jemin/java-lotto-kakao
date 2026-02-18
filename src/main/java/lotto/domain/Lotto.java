@@ -35,17 +35,13 @@ public class Lotto {
         }
     }
 
-    public List<Integer> getNumbers() {
-        List<Integer> list = new ArrayList<>();
-        for (LottoNumber number : this.numbers) {
-            list.add(number.getNumber());
-        }
-        return Collections.unmodifiableList(list);
+    public List<LottoNumber> getNumbers() {
+        return Collections.unmodifiableList(this.numbers);
     }
 
     public int matchCount(Lotto userLotto) {
-        Set<Integer> userSet = new HashSet<>(userLotto.getNumbers());
-        userSet.retainAll(new HashSet<>(getNumbers()));
+        Set<LottoNumber> userSet = new HashSet<>(userLotto.numbers);
+        userSet.retainAll(new HashSet<>(this.numbers));
         return userSet.size();
     }
 }

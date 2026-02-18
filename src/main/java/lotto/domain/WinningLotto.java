@@ -16,7 +16,7 @@ public class WinningLotto {
     }
 
     private void validateDuplicate(Lotto lotto, LottoNumber bonusNumber) {
-        if (lotto.getNumbers().contains(bonusNumber.getNumber())) {
+        if (lotto.getNumbers().contains(bonusNumber)) {
             throw new IllegalArgumentException(BONUS_NUMBER_DUPLICATE_EXCEPTION);
         }
     }
@@ -50,8 +50,8 @@ public class WinningLotto {
     }
 
     private boolean checkBonusNumber(Lotto userLotto) {
-        Set<Integer> userLottoSet = new HashSet<>(userLotto.getNumbers());
-        return userLottoSet.contains(this.bonusNumber.getNumber());
+        Set<LottoNumber> userLottoSet = new HashSet<>(userLotto.getNumbers());
+        return userLottoSet.contains(this.bonusNumber);
     }
 
     private long calculateProfit(Map<LottoStatus, Integer> map) {

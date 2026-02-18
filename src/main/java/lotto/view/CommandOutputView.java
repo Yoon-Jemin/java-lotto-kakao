@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoStatus;
 
 import java.util.List;
@@ -14,9 +15,9 @@ import static lotto.domain.LottoStatus.SIX_CORRECT;
 public class CommandOutputView implements OutputView {
 
     @Override
-    public void printLog(List<Integer> list) {
+    public void printLog(List<LottoNumber> list) {
         String result = list.stream()
-                .map(String::valueOf)
+                .map(lottoNumber -> String.valueOf(lottoNumber.getNumber()))
                 .collect(Collectors.joining(", ", "[", "]"));
         System.out.println(result);
     }

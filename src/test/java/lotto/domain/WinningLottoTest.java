@@ -32,7 +32,9 @@ public class WinningLottoTest {
         LottoNumber bonusNumber = new LottoNumber(7);
         WinningLotto winningLotto = new WinningLotto(lotto, bonusNumber);
 
-        assertThat(winningLotto.getLotto().getNumbers()).containsExactly(1,2,3,4,5,6);
+        assertThat(winningLotto.getLotto().getNumbers())
+                .extracting(LottoNumber::getNumber)
+                .containsExactly(1, 2, 3, 4, 5, 6);
         assertThat(winningLotto.getBonusNumber().getNumber()).isEqualTo(7);
     }
 

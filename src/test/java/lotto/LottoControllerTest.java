@@ -1,5 +1,6 @@
 package lotto;
 
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoResult;
 import lotto.domain.LottoStatus;
 import lotto.domain.NumberGenerator;
@@ -104,9 +105,9 @@ public class LottoControllerTest {
         }
 
         @Override
-        public void printLog(List<Integer> list) {
+        public void printLog(List<LottoNumber> list) {
             String result = list.stream()
-                    .map(String::valueOf)
+                    .map(lottoNumber -> String.valueOf(lottoNumber.getNumber()))
                     .collect(Collectors.joining(", ", "[", "]"));
 
             output.add(result);
