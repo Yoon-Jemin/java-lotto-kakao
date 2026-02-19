@@ -3,7 +3,9 @@ package lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoResult;
 import lotto.domain.LottoStatus;
-import lotto.domain.NumberGenerator;
+import lotto.generator.CompositeLottoGenerator;
+import lotto.generator.LottoGenerator;
+import lotto.generator.NumberGenerator;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 import org.assertj.core.api.Assertions;
@@ -24,6 +26,7 @@ public class LottoControllerTest {
     @DisplayName("통합 테스트")
     public void success() {
         NumberGenerator fixedNumberGenerator = new FixedNumberGenerator();
+        CompositeLottoGenerator lottoGenerator = new CompositeLottoGenerator();
         MockInputView inputView = new MockInputView(List.of(
                 "3000",
                 "2",
@@ -36,6 +39,7 @@ public class LottoControllerTest {
 
         LottoController controller = new LottoController(
                 fixedNumberGenerator,
+                lottoGenerator,
                 inputView,
                 outputView
         );

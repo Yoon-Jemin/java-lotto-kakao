@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.generator;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class RandomNumberTest {
+public class RandomNumberGeneratorTest {
 
     @Test
     @DisplayName("성공 케이스")
