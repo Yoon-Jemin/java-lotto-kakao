@@ -13,7 +13,7 @@ public class Lotto {
         validate(numbers);
         this.numbers = new ArrayList<>();
         for (int number : numbers) {
-            this.numbers.add(new LottoNumber(number));
+            this.numbers.add(LottoNumber.of(number));
         }
     }
 

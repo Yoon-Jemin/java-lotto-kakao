@@ -5,6 +5,7 @@ import lotto.domain.Lotto;
 import java.util.ArrayList;
 import java.util.List;
 
+// composite 클래스
 public class CompositeLottoGenerator implements LottoGenerator {
 
     private List<GeneratorTask> tasks;

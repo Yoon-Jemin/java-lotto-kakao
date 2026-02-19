@@ -17,6 +17,15 @@ public class PriceTest {
     }
 
     @Test
+    @DisplayName("가격을 토대로 구매할 수 있는 로또의 개수를 구할 수 있다.")
+    void success_() {
+        Price price = new Price(14000);
+        int lottoCount = price.getLottoCount();
+
+        Assertions.assertThat(lottoCount).isEqualTo(14);
+    }
+
+    @Test
     @DisplayName("1000원 미만의 입력을 받은 경우 예외처리 할 수 있다.")
     void fail_priceRange() {
         assertThatThrownBy(() -> {

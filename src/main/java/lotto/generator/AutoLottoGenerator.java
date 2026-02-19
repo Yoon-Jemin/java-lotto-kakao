@@ -5,6 +5,7 @@ import lotto.domain.Lotto;
 import java.util.ArrayList;
 import java.util.List;
 
+// leaf 클래스
 public class AutoLottoGenerator implements LottoGenerator {
 
     private final NumberGenerator generator;

@@ -70,7 +70,7 @@ public class LottoController {
                 .toList();
 
         int bonusNumber = makeBonusNumber();
-        return new WinningLotto(new Lotto(winningLottoList), new LottoNumber(bonusNumber));
+        return new WinningLotto(new Lotto(winningLottoList), LottoNumber.of(bonusNumber));
     }
 
     private String[] makeWinningLottoNumbers() {

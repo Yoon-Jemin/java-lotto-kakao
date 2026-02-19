@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// leaf 클래스
 public class ManualLottoGenerator implements LottoGenerator {
 
     private final InputView inputView;

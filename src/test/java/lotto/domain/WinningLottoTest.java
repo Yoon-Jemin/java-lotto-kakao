@@ -28,7 +28,7 @@ public class WinningLottoTest {
     @DisplayName("성공 케이스")
     void success() {
         Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-        LottoNumber bonusNumber = new LottoNumber(7);
+        LottoNumber bonusNumber = LottoNumber.of(7);
         WinningLotto winningLotto = new WinningLotto(lotto, bonusNumber);
 
         assertThat(winningLotto.getLotto().getNumbers())
@@ -42,7 +42,7 @@ public class WinningLottoTest {
     void fail_bonusNumberDuplicate() {
         assertThatThrownBy(() -> {
             Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-            LottoNumber bonusNumber = new LottoNumber(1);
+            LottoNumber bonusNumber = LottoNumber.of(1);
             WinningLotto winningLotto = new WinningLotto(lotto, bonusNumber);
         }).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(BONUS_NUMBER_DUPLICATE_EXCEPTION);
@@ -51,7 +51,7 @@ public class WinningLottoTest {
     @Test
     @DisplayName("사용자의 로또 번호를 기반으로 수익과 수익률을 계산할 수 있다.")
     void calculate() {
-        WinningLotto winningLotto = new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), new LottoNumber(7));
+        WinningLotto winningLotto = new WinningLotto(new Lotto(List.of(1, 2, 3, 4, 5, 6)), LottoNumber.of(7));
 
         LottoResult result = winningLotto.calculate(this.user.getLottos(), this.user.getPrice());
         long profit = result.getProfit();
